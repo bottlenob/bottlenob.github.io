@@ -22,8 +22,11 @@ type ModalState =
     }
   | null;
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const assetUrl = (path: string) => `${basePath}${path}`;
+
 const phases: { id: PhaseId; title: string; caption: string }[] = [
-  { id: "hero", title: "卷首", caption: "数字启航" },
+  { id: "hero", title: "卷首", caption: "从零启航" },
   { id: "planning", title: "立项", caption: "谋篇布局" },
   { id: "prepare", title: "筹备", caption: "厉兵秣马" },
   { id: "build", title: "建设", caption: "匠心筑梦" },
@@ -33,18 +36,18 @@ const phases: { id: PhaseId; title: string; caption: string }[] = [
 
 const archiveCards = [
   {
-    title: "立项批文",
+    title: "立项批复",
     code: "ARCH-2021-0318",
     tag: "红头文件",
-    metric: "投资额 28.6 亿元",
-    body: "项目纳入年度重点工程库，定位为区域智能研发、数据运营与产业孵化综合载体。",
+    metric: "投资额 XXXX 亿元",
+    body: "项目纳入XXXX重点工程，定位为区域智能研发、数据运营与产业孵化综合载体。",
     accent: "orange" as const,
   },
   {
     title: "土地证书",
     code: "LAND-2021-0626",
     tag: "用地档案",
-    metric: "建设用地 186 亩",
+    metric: "建设用地 XXXX 亩",
     body: "园区用地边界、地下管线保护线与周边交通组织在规划阶段一次性校核完成。",
     accent: "cyan" as const,
   },
@@ -52,7 +55,7 @@ const archiveCards = [
     title: "规划总图",
     code: "PLAN-2021-0915",
     tag: "蓝图审定",
-    metric: "总建面 42 万 m2",
+    metric: "总建面 XXX 万 m2",
     body: "研发楼、数据中心、能源站、景观轴线和地下连廊形成一体化智慧园区骨架。",
     accent: "cyan" as const,
   },
@@ -249,16 +252,16 @@ function Hero({ progress }: { progress: number }) {
       />
       <div className="hero-scanline" />
       <div className="hero-content" style={{ transform: `scale(${heroScale})`, opacity: heroOpacity }}>
-        <p className="kicker">智慧研发园区建设档案编研成果</p>
-        <h1>数字启航</h1>
-        <p className="hero-subtitle">从图纸到现实，记录冰冷钢铁与温暖科技同频生长的四十二个月。</p>
+        <p className="kicker">仙林所区建设档案编研</p>
+        <h1>从零启航</h1>
+        <p className="hero-subtitle">从图纸到现实，记录新所区诞生的XX个月。</p>
       </div>
       <div className="hero-metrics" aria-label="项目关键数据">
         <span>
-          <strong>42</strong>万 m2
+          <strong>XX</strong>万 m2
         </span>
         <span>
-          <strong>1202</strong>安全天
+          <strong>1202</strong>天安全生产无事故
         </span>
         <span>
           <strong>9,600+</strong>物联点
@@ -283,7 +286,7 @@ function ArchiveCard({
           <span>{card.tag}</span>
           <h3>{card.title}</h3>
           <p>{card.code}</p>
-          <div className="archive-seal">档</div>
+          <div className="archive-seal">归档</div>
         </div>
         <div className="archive-back">
           <span>核心提要</span>
@@ -443,10 +446,10 @@ function PlanningModel() {
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
       const vertices = project(width, height);
       gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-      gl.uniform4f(colorLocation, 0.0, 0.94, 1.0, 0.28);
+      gl.uniform4f(colorLocation, 0.24, 0.45, 0.66, 0.38);
       gl.lineWidth(1);
       gl.drawArrays(gl.LINES, 0, gridCount);
-      gl.uniform4f(colorLocation, 0.9, 0.99, 1.0, 0.9);
+      gl.uniform4f(colorLocation, 0.08, 0.22, 0.36, 0.82);
       gl.drawArrays(gl.LINES, gridCount, sourceVertices.length / 3 - gridCount);
     };
     render();
@@ -476,7 +479,7 @@ function PlanningModel() {
       <canvas ref={canvasRef} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} />
       <div className="model-hud">
         <span>EARLY MASSING</span>
-        <strong>WebGL 沙盘白模</strong>
+        <strong>仙林所区 沙盘白模</strong>
       </div>
     </div>
   );
@@ -520,10 +523,10 @@ function PartnerGraph() {
         ))}
         <circle cx="50" cy="50" r="10" className="graph-core" />
         <text x="50" y="49" textAnchor="middle">
-          园区
+          仙林园区
         </text>
         <text x="50" y="55" textAnchor="middle" className="graph-small">
-          Command
+          建设指挥部
         </text>
         {partnerNodes.map((node) => (
           <g key={node.name}>
@@ -613,17 +616,17 @@ function TimelapseCanvas({ progress }: { progress: number }) {
     const h = canvas.clientHeight;
     ctx.clearRect(0, 0, w, h);
     const sky = ctx.createLinearGradient(0, 0, 0, h);
-    sky.addColorStop(0, `rgba(${20 + progress * 140}, ${32 + progress * 120}, ${56 + progress * 90}, 1)`);
-    sky.addColorStop(1, `rgba(${14 + progress * 92}, ${18 + progress * 86}, ${24 + progress * 68}, 1)`);
+    sky.addColorStop(0, `rgba(${224 + progress * 18}, ${233 + progress * 12}, ${239 + progress * 8}, 1)`);
+    sky.addColorStop(1, `rgba(${199 + progress * 26}, ${216 + progress * 19}, ${228 + progress * 12}, 1)`);
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, w, h);
 
-    ctx.fillStyle = "rgba(255, 107, 0, 0.22)";
+    ctx.fillStyle = "rgba(176, 83, 49, 0.18)";
     ctx.beginPath();
     ctx.arc(w * (0.18 + progress * 0.58), h * 0.18, 58, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.strokeStyle = "rgba(0, 240, 255, 0.16)";
+    ctx.strokeStyle = "rgba(74, 111, 143, 0.24)";
     ctx.lineWidth = 1;
     for (let i = 0; i < 18; i += 1) {
       const y = h * 0.66 + i * 18;
@@ -633,13 +636,13 @@ function TimelapseCanvas({ progress }: { progress: number }) {
       ctx.stroke();
     }
 
-    ctx.fillStyle = "#1a1f25";
+    ctx.fillStyle = "#d5c9b8";
     ctx.fillRect(0, h * 0.72, w, h * 0.28);
 
     const pit = clamp(progress * 3.2);
-    ctx.fillStyle = `rgba(35, 27, 22, ${0.9 - progress * 0.35})`;
+    ctx.fillStyle = `rgba(118, 93, 70, ${0.72 - progress * 0.28})`;
     ctx.fillRect(w * 0.12, h * 0.68, w * 0.72, 42 * pit);
-    ctx.strokeStyle = "rgba(255, 107, 0, 0.56)";
+    ctx.strokeStyle = "rgba(153, 73, 44, 0.58)";
     ctx.strokeRect(w * 0.12, h * 0.68, w * 0.72, 42);
 
     const structure = clamp((progress - 0.18) / 0.55);
@@ -648,7 +651,7 @@ function TimelapseCanvas({ progress }: { progress: number }) {
     const baseY = h * 0.7;
     const bw = w * 0.46;
     const floorH = h * 0.034;
-    ctx.strokeStyle = "rgba(220, 242, 245, 0.78)";
+    ctx.strokeStyle = "rgba(25, 61, 91, 0.72)";
     ctx.lineWidth = 2;
     for (let floor = 0; floor < floors; floor += 1) {
       const y = baseY - floor * floorH;
@@ -666,9 +669,9 @@ function TimelapseCanvas({ progress }: { progress: number }) {
     }
 
     const facade = clamp((progress - 0.62) / 0.24);
-    ctx.fillStyle = `rgba(0, 240, 255, ${0.12 + facade * 0.24})`;
+    ctx.fillStyle = `rgba(68, 116, 154, ${0.1 + facade * 0.18})`;
     ctx.fillRect(baseX, baseY - floors * floorH + 8, bw, floors * floorH - 8);
-    ctx.strokeStyle = `rgba(0, 240, 255, ${facade * 0.7})`;
+    ctx.strokeStyle = `rgba(25, 61, 91, ${facade * 0.58})`;
     for (let i = 0; i < 20; i += 1) {
       ctx.beginPath();
       ctx.moveTo(baseX + i * (bw / 20), baseY - floors * floorH + 8);
@@ -677,7 +680,7 @@ function TimelapseCanvas({ progress }: { progress: number }) {
     }
 
     const crane = clamp((0.75 - progress) / 0.75);
-    ctx.strokeStyle = `rgba(255, 107, 0, ${0.9 * crane})`;
+    ctx.strokeStyle = `rgba(153, 73, 44, ${0.78 * crane})`;
     ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.moveTo(w * 0.73, h * 0.7);
@@ -693,7 +696,7 @@ function TimelapseCanvas({ progress }: { progress: number }) {
       const x = (i * 73) % w;
       const y = (i * 41) % h;
       const alpha = clamp(progress * 2 - (i % 4) * 0.18);
-      ctx.fillStyle = `rgba(0, 240, 255, ${alpha * 0.42})`;
+      ctx.fillStyle = `rgba(40, 84, 118, ${alpha * 0.34})`;
       ctx.fillRect(x, y, 2, 2);
     }
   }, [progress]);
@@ -804,9 +807,9 @@ function BeforeAfterSlider() {
         if (event.buttons === 1) update(event.clientX);
       }}
     >
-      <img className="ba-image" src="/assets/campus-hero.png" alt="竣工后的智慧研发园区航拍实景" />
+      <img className="ba-image" src={assetUrl("/assets/campus-hero.png")} alt="竣工后的智慧研发园区航拍实景" />
       <div className="before-layer" style={{ clipPath: `inset(0 ${100 - split}% 0 0)` }}>
-        <img className="ba-image" src="/assets/campus-construction.png" alt="建设早期的园区施工现场" />
+        <img className="ba-image" src={assetUrl("/assets/campus-construction.png")} alt="建设早期的园区施工现场" />
       </div>
       <div className="ba-handle" style={{ left: `${split}%` }}>
         <span />
@@ -855,7 +858,7 @@ function Future({ onOpen }: { onOpen: (hotspot: (typeof hotspots)[number]) => vo
         <p>开园后的建筑不再只是空间，而是持续感知、计算、反馈的研发生态系统。</p>
       </div>
       <div className="hotspot-map">
-        <img className="map-image" src="/assets/campus-hero.png" alt="智慧研发园区数智生态总览" />
+        <img className="map-image" src={assetUrl("/assets/campus-hero.png")} alt="智慧研发园区数智生态总览" />
         {hotspots.map((spot) => (
           <button
             key={spot.title}
@@ -925,7 +928,14 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="site-shell">
+    <main
+      className="site-shell"
+      style={
+        {
+          "--campus-hero": `url(${assetUrl("/assets/campus-hero.png")})`,
+        } as CSSProperties
+      }
+    >
       <LoadingVeil />
       <CustomCursor />
       <Timeline active={active} progress={progress} />

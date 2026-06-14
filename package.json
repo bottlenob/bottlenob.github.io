@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
+    "build:github": "next build",
     "start": "vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern work --ignore-pattern outputs",
     "db:generate": "drizzle-kit generate"
